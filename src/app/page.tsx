@@ -1,103 +1,159 @@
-import Image from "next/image";
+import Hero from "@/components/Hero";
+import MapCard from "@/components/MapCard";
+import Link from "next/link";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const features = [
+    {
+      title: "🏛️ Villes historiques",
+      description: "Découvrez les villes emblématiques de Provence avec leur riche patrimoine architectural et culturel.",
+      href: "/villes",
+      icon: "🏛️"
+    },
+    {
+      title: "📚 Histoires millénaires", 
+      description: "Plongez dans les récits fascinants qui ont façonné l'identité provençale à travers les siècles.",
+      href: "/histoires",
+      icon: "📚"
+    },
+    {
+      title: "✨ Légendes mystérieuses",
+      description: "Explorez les contes et légendes qui donnent à la Provence son charme mystique unique.",
+      href: "/legendes", 
+      icon: "✨"
+    },
+    {
+      title: "🏰 Monuments emblématiques",
+      description: "Admirez les châteaux, églises et fontaines qui témoignent du génie architectural provençal.",
+      href: "/monuments",
+      icon: "🏰"
+    }
+  ];
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const departements = [
+    { name: "Bouches-du-Rhône", code: "13", description: "Marseille, Aix-en-Provence, Arles..." },
+    { name: "Var", code: "83", description: "Toulon, Saint-Tropez, Draguignan..." },
+    { name: "Vaucluse", code: "84", description: "Avignon, Orange, Carpentras..." },
+    { name: "Alpes-de-Haute-Provence", code: "04", description: "Digne-les-Bains, Manosque..." }
+  ];
+
+  return (
+    <div className="bg-gradient-to-b from-amber-50 to-orange-50">
+      <Hero />
+      
+      {/* Section Carte Interactive - Mise en avant */}
+      <section className="py-16 bg-gradient-to-br from-amber-100 to-orange-100">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-2xl text-center mb-12">
+            <h2 className="text-3xl font-bold tracking-tight text-amber-900 sm:text-4xl font-playfair">
+              🗺️ Explorez la Provence
+            </h2>
+            <p className="mt-4 text-lg text-amber-700">
+              Découvrez les villes authentiques sur une carte interactive
+            </p>
+          </div>
+          <div className="mx-auto max-w-4xl">
+            <MapCard />
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </section>
+      
+      {/* Section Découvrir */}
+      <section className="py-24 bg-white">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-2xl text-center">
+            <h2 className="text-3xl font-bold tracking-tight text-amber-900 sm:text-4xl font-playfair">
+              Que souhaitez-vous découvrir ?
+            </h2>
+            <p className="mt-6 text-lg leading-8 text-amber-700">
+              Explorez les différentes facettes de la Provence à travers nos collections thématiques
+            </p>
+          </div>
+          <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
+            <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-2">
+              {features.map((feature) => (
+                <Link key={feature.title} href={feature.href} className="group">
+                  <div className="flex flex-col bg-gradient-to-br from-amber-50 to-orange-50 p-8 rounded-2xl border border-amber-200 hover:border-amber-400 hover:shadow-xl transition-all duration-300">
+                    <dt className="flex items-center gap-x-3 text-xl font-semibold leading-7 text-amber-900 group-hover:text-orange-600 transition-colors">
+                      <span className="text-3xl">{feature.icon}</span>
+                      {feature.title}
+                    </dt>
+                    <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-amber-700">
+                      <p className="flex-auto">{feature.description}</p>
+                      <p className="mt-6">
+                        <span className="text-sm font-semibold leading-6 text-amber-600 group-hover:text-orange-600 transition-colors">
+                          Explorer <span aria-hidden="true">→</span>
+                        </span>
+                      </p>
+                    </dd>
+                  </div>
+                </Link>
+              ))}
+            </dl>
+          </div>
+        </div>
+      </section>
+
+      {/* Section Départements */}
+      <section className="py-24 bg-gradient-to-br from-amber-100 to-orange-100">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-2xl text-center">
+            <h2 className="text-3xl font-bold tracking-tight text-amber-900 sm:text-4xl font-playfair">
+              Explorez par département
+            </h2>
+            <p className="mt-6 text-lg leading-8 text-amber-700">
+              Chaque département de Provence a ses propres trésors à découvrir
+            </p>
+          </div>
+          <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-6 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-2 xl:grid-cols-4">
+            {departements.map((dept) => (
+              <Link
+                key={dept.code}
+                href={`/villes?dept=${dept.code}`}
+                className="group relative flex flex-col bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-amber-200 hover:border-amber-400"
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-amber-100 text-amber-800">
+                    {dept.code}
+                  </span>
+                  <span className="text-2xl">🌻</span>
+                </div>
+                <h3 className="text-lg font-semibold text-amber-900 group-hover:text-orange-600 transition-colors">
+                  {dept.name}
+                </h3>
+                <p className="mt-2 text-sm text-amber-600 flex-1">
+                  {dept.description}
+                </p>
+                <div className="mt-4 text-sm font-semibold text-amber-600 group-hover:text-orange-600 transition-colors">
+                  Découvrir <span aria-hidden="true">→</span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Section CTA */}
+      <section className="py-16 bg-gradient-to-r from-amber-600 to-orange-600">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-2xl text-center">
+            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl font-playfair">
+              Commencez votre voyage en Provence
+            </h2>
+            <p className="mt-6 text-lg leading-8 text-amber-100">
+              Laissez-vous guider à travers les merveilles de cette région unique où histoire, culture et beauté se rencontrent.
+            </p>
+            <div className="mt-10 flex items-center justify-center gap-x-6">
+              <Link
+                href="/villes"
+                className="rounded-md bg-white px-6 py-3 text-sm font-semibold text-amber-600 shadow-sm hover:bg-amber-50 transition-all duration-200"
+              >
+                Explorer maintenant
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
