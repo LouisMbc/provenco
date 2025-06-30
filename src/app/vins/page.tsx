@@ -32,185 +32,31 @@ export default function VinsPage() {
             </button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Minuty Rosé et Or */}
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-              <div className="h-48 bg-gradient-to-br from-rose-200 to-pink-300 flex items-center justify-center">
-                <span className="text-6xl">🌹</span>
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-amber-900 mb-2">Minuty Rosé et Or</h3>
-                <p className="text-amber-700 mb-4 text-sm">
-                  Le rosé de prestige de Château Minuty, symbole de l&apos;art de vivre provençal.
-                </p>
-                <div className="space-y-2 mb-4">
-                  <div className="flex justify-between text-xs">
-                    <span className="text-amber-600">Domaine:</span>
-                    <Link href="/domaines/minuty" className="text-orange-600 hover:underline font-semibold">Château Minuty</Link>
-                  </div>
-                  <div className="flex justify-between text-xs">
-                    <span className="text-amber-600">Type:</span>
-                    <span className="text-rose-600 font-semibold">Rosé</span>
-                  </div>
-                  <div className="flex justify-between text-xs">
-                    <span className="text-amber-600">Cépages:</span>
-                    <span className="text-amber-900">Grenache, Cinsault</span>
-                  </div>
-                </div>
-                <Link href="/vins/minuty-rose-et-or" className="text-orange-600 hover:text-orange-700 font-semibold text-sm">
-                  Découvrir ce vin →
-                </Link>
-              </div>
-            </div>
-
-            {/* Tempier Bandol Rouge */}
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-              <div className="h-48 bg-gradient-to-br from-red-200 to-red-500 flex items-center justify-center">
-                <span className="text-6xl">🍇</span>
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-amber-900 mb-2">Tempier Bandol Rouge</h3>
-                <p className="text-amber-700 mb-4 text-sm">
-                  Vin rouge puissant et élégant, expression pure du terroir de Bandol et du Mourvèdre.
-                </p>
-                <div className="space-y-2 mb-4">
-                  <div className="flex justify-between text-xs">
-                    <span className="text-amber-600">Domaine:</span>
-                    <Link href="/domaines/tempier" className="text-orange-600 hover:underline font-semibold">Domaine Tempier</Link>
-                  </div>
-                  <div className="flex justify-between text-xs">
-                    <span className="text-amber-600">Type:</span>
-                    <span className="text-red-600 font-semibold">Rouge</span>
-                  </div>
-                  <div className="flex justify-between text-xs">
-                    <span className="text-amber-600">Cépages:</span>
-                    <span className="text-amber-900">Mourvèdre, Grenache</span>
-                  </div>
-                </div>
-                <Link href="/vins/tempier-bandol-rouge" className="text-orange-600 hover:text-orange-700 font-semibold text-sm">
-                  Découvrir ce vin →
-                </Link>
-              </div>
-            </div>
-
-            {/* Cassis Blanc Sainte Magdeleine */}
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-              <div className="h-48 bg-gradient-to-br from-yellow-200 to-amber-300 flex items-center justify-center">
-                <span className="text-6xl">🥂</span>
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-amber-900 mb-2">Cassis Blanc</h3>
-                <p className="text-amber-700 mb-4 text-sm">
-                  Vin blanc minéral et iodé, reflet parfait du terroir maritime de Cassis.
-                </p>
-                <div className="space-y-2 mb-4">
-                  <div className="flex justify-between text-xs">
-                    <span className="text-amber-600">Domaine:</span>
-                    <Link href="/domaines/sainte-magdeleine" className="text-orange-600 hover:underline font-semibold">Clos Sainte Magdeleine</Link>
-                  </div>
-                  <div className="flex justify-between text-xs">
-                    <span className="text-amber-600">Type:</span>
-                    <span className="text-yellow-600 font-semibold">Blanc</span>
-                  </div>
-                  <div className="flex justify-between text-xs">
-                    <span className="text-amber-600">Cépages:</span>
-                    <span className="text-amber-900">Marsanne, Clairette</span>
-                  </div>
-                </div>
-                <Link href="/vins/cassis-blanc-sainte-magdeleine" className="text-orange-600 hover:text-orange-700 font-semibold text-sm">
-                  Découvrir ce vin →
-                </Link>
-              </div>
-            </div>
-
-            {/* Palette Rouge Simone */}
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-              <div className="h-48 bg-gradient-to-br from-purple-200 to-purple-400 flex items-center justify-center">
-                <span className="text-6xl">👑</span>
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-amber-900 mb-2">Château Simone Rouge</h3>
-                <p className="text-amber-700 mb-4 text-sm">
-                  Vin rouge rare et complexe de l&apos;appellation Palette, vieilli en foudres centenaires.
-                </p>
-                <div className="space-y-2 mb-4">
-                  <div className="flex justify-between text-xs">
-                    <span className="text-amber-600">Domaine:</span>
-                    <Link href="/domaines/simone" className="text-orange-600 hover:underline font-semibold">Château Simone</Link>
-                  </div>
-                  <div className="flex justify-between text-xs">
-                    <span className="text-amber-600">Type:</span>
-                    <span className="text-red-600 font-semibold">Rouge</span>
-                  </div>
-                  <div className="flex justify-between text-xs">
-                    <span className="text-amber-600">Cépages:</span>
-                    <span className="text-amber-900">Mourvèdre, Grenache, Cinsault</span>
-                  </div>
-                </div>
-                <Link href="/vins/chateau-simone-rouge" className="text-orange-600 hover:text-orange-700 font-semibold text-sm">
-                  Découvrir ce vin →
-                </Link>
-              </div>
-            </div>
-
-            {/* Trévallon Rouge */}
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-              <div className="h-48 bg-gradient-to-br from-orange-200 to-red-400 flex items-center justify-center">
-                <span className="text-6xl">🌱</span>
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-amber-900 mb-2">Trévallon Rouge</h3>
-                <p className="text-amber-700 mb-4 text-sm">
-                  Assemblage iconique Cabernet Sauvignon - Syrah, vin culte des Alpilles en biodynamie.
-                </p>
-                <div className="space-y-2 mb-4">
-                  <div className="flex justify-between text-xs">
-                    <span className="text-amber-600">Domaine:</span>
-                    <Link href="/domaines/trevallon" className="text-orange-600 hover:underline font-semibold">Domaine de Trévallon</Link>
-                  </div>
-                  <div className="flex justify-between text-xs">
-                    <span className="text-amber-600">Type:</span>
-                    <span className="text-red-600 font-semibold">Rouge Bio</span>
-                  </div>
-                  <div className="flex justify-between text-xs">
-                    <span className="text-amber-600">Cépages:</span>
-                    <span className="text-amber-900">Cabernet Sauvignon, Syrah</span>
-                  </div>
-                </div>
-                <Link href="/vins/trevallon-rouge" className="text-orange-600 hover:text-orange-700 font-semibold text-sm">
-                  Découvrir ce vin →
-                </Link>
-              </div>
-            </div>
-
-            {/* Banyuls Doux Naturel */}
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-              <div className="h-48 bg-gradient-to-br from-amber-200 to-orange-400 flex items-center justify-center">
-                <span className="text-6xl">🍯</span>
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-amber-900 mb-2">Banyuls Rimage</h3>
-                <p className="text-amber-700 mb-4 text-sm">
-                  Vin doux naturel exceptionnel, trésor des terroirs en terrasses de Banyuls.
-                </p>
-                <div className="space-y-2 mb-4">
-                  <div className="flex justify-between text-xs">
-                    <span className="text-amber-600">Domaine:</span>
-                    <Link href="/domaines/rectorie" className="text-orange-600 hover:underline font-semibold">Domaine de la Rectorie</Link>
-                  </div>
-                  <div className="flex justify-between text-xs">
-                    <span className="text-amber-600">Type:</span>
-                    <span className="text-purple-600 font-semibold">Doux Naturel</span>
-                  </div>
-                  <div className="flex justify-between text-xs">
-                    <span className="text-amber-600">Cépages:</span>
-                    <span className="text-amber-900">Grenache Noir</span>
-                  </div>
-                </div>
-                <Link href="/vins/banyuls-rimage" className="text-orange-600 hover:text-orange-700 font-semibold text-sm">
-                  Découvrir ce vin →
-                </Link>
-              </div>
+          <div className="text-center mb-12">
+            <p className="text-lg text-amber-700">
+              Aucun vin n&apos;est encore enregistré. Utilisez l&apos;administration pour ajouter du contenu.
+            </p>
+            
+            {/* Actions de navigation */}
+            <div className="mt-8 flex flex-col sm:flex-row justify-center items-center gap-4">
+              <Link
+                href="/admin/vins"
+                className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-amber-600 to-orange-600 text-white rounded-lg hover:from-amber-700 hover:to-orange-700 transition-all duration-200 font-medium"
+              >
+                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                </svg>
+                Gérer les vins
+              </Link>
+              <Link
+                href="/domaines"
+                className="inline-flex items-center text-amber-600 hover:text-amber-700 transition-colors"
+              >
+                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+                Voir les domaines
+              </Link>
             </div>
           </div>
 

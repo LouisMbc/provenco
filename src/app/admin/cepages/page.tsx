@@ -42,115 +42,8 @@ export default function AdminCepagesPage() {
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 <tr>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm font-medium text-gray-900">Mourvèdre</div>
-                    <div className="text-sm text-gray-500">Monastrell</div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-                      Rouge
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    Espagne
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    Tannique, Épicé, Garde
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    Bandol, Palette
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <Link href="/admin/cepages/1/edit" className="text-indigo-600 hover:text-indigo-900 mr-3">
-                      Modifier
-                    </Link>
-                    <button className="text-red-600 hover:text-red-900">
-                      Supprimer
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm font-medium text-gray-900">Grenache Noir</div>
-                    <div className="text-sm text-gray-500">Garnacha</div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-                      Rouge
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    Espagne/Sardaigne
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    Fruité, Généreux, Alcooleux
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    Toutes AOC Provence
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <Link href="/admin/cepages/2/edit" className="text-indigo-600 hover:text-indigo-900 mr-3">
-                      Modifier
-                    </Link>
-                    <button className="text-red-600 hover:text-red-900">
-                      Supprimer
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm font-medium text-gray-900">Rolle</div>
-                    <div className="text-sm text-gray-500">Vermentino</div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                      Blanc
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    Italie/Corse
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    Minéral, Iodé, Frais
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    Cassis, Bellet, Côtes de Provence
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <Link href="/admin/cepages/3/edit" className="text-indigo-600 hover:text-indigo-900 mr-3">
-                      Modifier
-                    </Link>
-                    <button className="text-red-600 hover:text-red-900">
-                      Supprimer
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm font-medium text-gray-900">Folle Noire</div>
-                    <div className="text-sm text-gray-500">Fuella Nera</div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-purple-100 text-purple-800">
-                      Rouge Rare
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    Nice (autochtone)
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    Délicat, Rare, Autochtone
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    Bellet uniquement
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <Link href="/admin/cepages/4/edit" className="text-indigo-600 hover:text-indigo-900 mr-3">
-                      Modifier
-                    </Link>
-                    <button className="text-red-600 hover:text-red-900">
-                      Supprimer
-                    </button>
+                  <td colSpan={6} className="px-6 py-4 text-center text-gray-500">
+                    Aucun cépage enregistré. Cliquez sur &quot;Nouveau Cépage&quot; pour commencer.
                   </td>
                 </tr>
               </tbody>
@@ -160,19 +53,19 @@ export default function AdminCepagesPage() {
           <div className="mt-8 grid grid-cols-1 md:grid-cols-4 gap-6">
             <div className="bg-white p-6 rounded-lg shadow">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Total Cépages</h3>
-              <p className="text-3xl font-bold text-blue-600">25</p>
+              <p className="text-3xl font-bold text-blue-600">0</p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Cépages Rouges</h3>
-              <p className="text-3xl font-bold text-red-600">15</p>
+              <p className="text-3xl font-bold text-red-600">0</p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Cépages Blancs</h3>
-              <p className="text-3xl font-bold text-yellow-600">8</p>
+              <p className="text-3xl font-bold text-yellow-600">0</p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Autochtones</h3>
-              <p className="text-3xl font-bold text-purple-600">5</p>
+              <p className="text-3xl font-bold text-purple-600">0</p>
             </div>
           </div>
         </div>

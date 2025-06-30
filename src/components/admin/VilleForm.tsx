@@ -172,7 +172,7 @@ export default function VilleForm({ ville, onSubmit, onCancel, loading = false }
               Population
             </label>
             <input
-              type="number"
+              type="text"
               id="population"
               name="population"
               value={formData.population}
@@ -180,9 +180,9 @@ export default function VilleForm({ ville, onSubmit, onCancel, loading = false }
               className={`mt-1 block w-full rounded-md shadow-sm focus:ring-amber-500 focus:border-amber-500 ${
                 errors.population ? 'border-red-300' : 'border-amber-300'
               }`}
-              placeholder="Ex: 145325"
-              min="0"
+              placeholder="ex: 145 325"
             />
+            <p className="mt-1 text-xs text-gray-500">Les espaces sont autorisés (ex: 22 500)</p>
             {errors.population && <p className="mt-1 text-sm text-red-600">{errors.population}</p>}
           </div>
 
@@ -192,17 +192,17 @@ export default function VilleForm({ ville, onSubmit, onCancel, loading = false }
               Latitude
             </label>
             <input
-              type="number"
+              type="text"
               id="latitude"
               name="latitude"
               value={formData.latitude}
               onChange={handleChange}
-              step="any"
               className={`mt-1 block w-full rounded-md shadow-sm focus:ring-amber-500 focus:border-amber-500 ${
                 errors.latitude ? 'border-red-300' : 'border-amber-300'
               }`}
-              placeholder="Ex: 43.529742"
+              placeholder="ex: 43,529742"
             />
+            <p className="mt-1 text-xs text-gray-500">Utilisez la virgule comme séparateur décimal</p>
             {errors.latitude && <p className="mt-1 text-sm text-red-600">{errors.latitude}</p>}
           </div>
 
@@ -212,17 +212,17 @@ export default function VilleForm({ ville, onSubmit, onCancel, loading = false }
               Longitude
             </label>
             <input
-              type="number"
+              type="text"
               id="longitude"
               name="longitude"
               value={formData.longitude}
               onChange={handleChange}
-              step="any"
               className={`mt-1 block w-full rounded-md shadow-sm focus:ring-amber-500 focus:border-amber-500 ${
                 errors.longitude ? 'border-red-300' : 'border-amber-300'
               }`}
-              placeholder="Ex: 5.447427"
+              placeholder="ex: 5,447427"
             />
+            <p className="mt-1 text-xs text-gray-500">Utilisez la virgule comme séparateur décimal</p>
             {errors.longitude && <p className="mt-1 text-sm text-red-600">{errors.longitude}</p>}
           </div>
         </div>

@@ -27,6 +27,21 @@ export default async function VilleDetailPage({ params }: VilleDetailPageProps) 
 
   return (
     <div className="bg-gradient-to-b from-amber-50 to-white min-h-screen">
+      {/* Bouton de retour */}
+      <div className="bg-white border-b border-gray-200">
+        <div className="mx-auto max-w-7xl px-6 py-4">
+          <Link
+            href="/villes"
+            className="inline-flex items-center text-amber-600 hover:text-amber-700 transition-colors group"
+          >
+            <svg className="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+            Retour aux villes de Provence
+          </Link>
+        </div>
+      </div>
+
       {/* Hero de la ville */}
       <div className="relative">
         <div className="bg-gradient-to-r from-amber-600 to-orange-600 px-6 py-24">

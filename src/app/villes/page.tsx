@@ -26,6 +26,22 @@ export default async function VillesPage() {
           </p>
         </div>
 
+        {/* Navigation et actions */}
+        <div className="mt-12 flex flex-col sm:flex-row justify-center items-center gap-4">
+          <Link
+            href="/carte"
+            className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-amber-600 to-orange-600 text-white rounded-lg hover:from-amber-700 hover:to-orange-700 transition-all duration-200 font-medium"
+          >
+            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+            </svg>
+            Voir sur la carte
+          </Link>
+          <div className="text-center text-sm text-amber-600">
+            {villes.length} ville{villes.length > 1 ? 's' : ''} de Provence
+          </div>
+        </div>
+
         {/* Filtres par département */}
         <div className="mt-16 flex flex-wrap justify-center gap-4">
           <Link

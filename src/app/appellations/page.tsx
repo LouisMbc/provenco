@@ -16,107 +16,31 @@ export default function AppellationsPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Côtes de Provence */}
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-              <div className="h-48 bg-gradient-to-br from-rose-200 to-pink-300"></div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-amber-900 mb-2">Côtes de Provence</h3>
-                <p className="text-amber-700 mb-4 text-sm">
-                  La plus vaste appellation de Provence, célèbre pour ses rosés exceptionnels et ses rouges de caractère.
-                </p>
-                <div className="flex justify-between items-center">
-                  <span className="text-xs text-amber-600 bg-amber-100 px-2 py-1 rounded-full">75% Rosé</span>
-                  <Link href="/appellations/cotes-de-provence" className="text-orange-600 hover:text-orange-700 font-semibold text-sm">
-                    Découvrir →
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            {/* Bandol */}
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-              <div className="h-48 bg-gradient-to-br from-red-200 to-red-400"></div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-amber-900 mb-2">Bandol</h3>
-                <p className="text-amber-700 mb-4 text-sm">
-                  Appellation prestigieuse connue pour ses vins rouges puissants à base de Mourvèdre et ses rosés élégants.
-                </p>
-                <div className="flex justify-between items-center">
-                  <span className="text-xs text-amber-600 bg-amber-100 px-2 py-1 rounded-full">Rouge Premium</span>
-                  <Link href="/appellations/bandol" className="text-orange-600 hover:text-orange-700 font-semibold text-sm">
-                    Découvrir →
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            {/* Cassis */}
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-              <div className="h-48 bg-gradient-to-br from-yellow-200 to-amber-300"></div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-amber-900 mb-2">Cassis</h3>
-                <p className="text-amber-700 mb-4 text-sm">
-                  Petite appellation côtière réputée pour ses vins blancs minéraux et ses rosés frais.
-                </p>
-                <div className="flex justify-between items-center">
-                  <span className="text-xs text-amber-600 bg-amber-100 px-2 py-1 rounded-full">Blanc Minéral</span>
-                  <Link href="/appellations/cassis" className="text-orange-600 hover:text-orange-700 font-semibold text-sm">
-                    Découvrir →
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            {/* Palette */}
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-              <div className="h-48 bg-gradient-to-br from-purple-200 to-purple-400"></div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-amber-900 mb-2">Palette</h3>
-                <p className="text-amber-700 mb-4 text-sm">
-                  La plus petite appellation de Provence, produisant des vins rares et recherchés près d&apos;Aix-en-Provence.
-                </p>
-                <div className="flex justify-between items-center">
-                  <span className="text-xs text-amber-600 bg-amber-100 px-2 py-1 rounded-full">Rare & Unique</span>
-                  <Link href="/appellations/palette" className="text-orange-600 hover:text-orange-700 font-semibold text-sm">
-                    Découvrir →
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            {/* Bellet */}
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-              <div className="h-48 bg-gradient-to-br from-blue-200 to-blue-400"></div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-amber-900 mb-2">Bellet</h3>
-                <p className="text-amber-700 mb-4 text-sm">
-                  Appellation niçoise alpine produisant des vins d&apos;altitude avec des cépages autochtones uniques.
-                </p>
-                <div className="flex justify-between items-center">
-                  <span className="text-xs text-amber-600 bg-amber-100 px-2 py-1 rounded-full">Altitude</span>
-                  <Link href="/appellations/bellet" className="text-orange-600 hover:text-orange-700 font-semibold text-sm">
-                    Découvrir →
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            {/* Les Baux-de-Provence */}
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-              <div className="h-48 bg-gradient-to-br from-orange-200 to-orange-400"></div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-amber-900 mb-2">Les Baux-de-Provence</h3>
-                <p className="text-amber-700 mb-4 text-sm">
-                  Appellation des Alpilles connue pour ses vins biologiques et ses terroirs calcaires exceptionnels.
-                </p>
-                <div className="flex justify-between items-center">
-                  <span className="text-xs text-amber-600 bg-amber-100 px-2 py-1 rounded-full">Bio</span>
-                  <Link href="/appellations/les-baux-de-provence" className="text-orange-600 hover:text-orange-700 font-semibold text-sm">
-                    Découvrir →
-                  </Link>
-                </div>
-              </div>
+          <div className="text-center mb-12">
+            <p className="text-lg text-amber-700">
+              Aucune appellation n&apos;est encore enregistrée. Utilisez l&apos;administration pour ajouter du contenu.
+            </p>
+            
+            {/* Actions de navigation */}
+            <div className="mt-8 flex flex-col sm:flex-row justify-center items-center gap-4">
+              <Link
+                href="/admin/appellations"
+                className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-amber-600 to-orange-600 text-white rounded-lg hover:from-amber-700 hover:to-orange-700 transition-all duration-200 font-medium"
+              >
+                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4" />
+                </svg>
+                Gérer les appellations
+              </Link>
+              <Link
+                href="/"
+                className="inline-flex items-center text-amber-600 hover:text-amber-700 transition-colors"
+              >
+                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
+                Retour à l&apos;accueil
+              </Link>
             </div>
           </div>
 

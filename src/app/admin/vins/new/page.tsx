@@ -1,13 +1,13 @@
-import React from 'react';
+'use client';
 
-export default function AppellationFormPage() {
+export default function VinFormPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900">Nouvelle Appellation</h1>
-            <p className="mt-2 text-gray-600">Créer une nouvelle appellation viticole de Provence</p>
+            <h1 className="text-3xl font-bold text-gray-900">Nouveau Vin</h1>
+            <p className="mt-2 text-gray-600">Créer une nouvelle cuvée</p>
           </div>
 
           <form className="space-y-8">
@@ -16,17 +16,26 @@ export default function AppellationFormPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700">
-                    Nom de l&apos;appellation
+                    Nom du vin / Cuvée
                   </label>
                   <input
                     type="text"
                     className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                    placeholder="ex: Nom de l'appellation"
+                    placeholder="ex: Cuvée Prestige"
                   />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700">
-                    Type principal
+                    Domaine
+                  </label>
+                  <select className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                    <option value="">Sélectionner un domaine</option>
+                    <option value="1">Château de...</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Type de vin
                   </label>
                   <select className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                     <option value="">Sélectionner un type</option>
@@ -38,44 +47,62 @@ export default function AppellationFormPage() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700">
-                    Région
+                    Millésime
                   </label>
                   <input
                     type="text"
                     className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                    placeholder="ex: Var, Bouches-du-Rhône"
+                    placeholder="ex: 2 023"
                   />
+                  <p className="mt-1 text-xs text-gray-500">Les espaces sont autorisés</p>
                 </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    Superficie (hectares)
-                  </label>
-                  <input
-                    type="text"
-                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                    placeholder="ex: 20 000"
-                  />
-                  <p className="mt-1 text-xs text-gray-500">Les espaces sont autorisés (ex: 22 500)</p>
-                </div>
-              </div>
-
-              <div className="mt-6">
-                <label className="block text-sm font-medium text-gray-700">
-                  Description
-                </label>
-                <textarea
-                  rows={4}
-                  className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="Description de l'appellation, ses caractéristiques, son terroir..."
-                ></textarea>
               </div>
             </div>
 
             <div className="bg-white shadow rounded-lg p-6">
-              <h2 className="text-lg font-medium text-gray-900 mb-4">Cépages autorisés</h2>
+              <h2 className="text-lg font-medium text-gray-900 mb-4">Caractéristiques techniques</h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Degré d&apos;alcool
+                  </label>
+                  <input
+                    type="text"
+                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="ex: 13,5"
+                  />
+                  <p className="mt-1 text-xs text-gray-500">Utilisez la virgule comme séparateur décimal</p>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Production (bouteilles)
+                  </label>
+                  <input
+                    type="text"
+                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="ex: 15 000"
+                  />
+                  <p className="mt-1 text-xs text-gray-500">Les espaces sont autorisés</p>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Prix approximatif (€)
+                  </label>
+                  <input
+                    type="text"
+                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="ex: 25,50"
+                  />
+                  <p className="mt-1 text-xs text-gray-500">Utilisez la virgule comme séparateur décimal</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white shadow rounded-lg p-6">
+              <h2 className="text-lg font-medium text-gray-900 mb-4">Assemblage</h2>
               <div className="space-y-4">
                 <p className="text-sm text-gray-600 mb-4">
-                  Sélectionnez les cépages autorisés pour cette appellation et définissez leurs pourcentages maximum.
+                  Définissez la composition en cépages de cette cuvée.
                 </p>
                 <div className="flex items-center space-x-4">
                   <button type="button" className="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700">
@@ -89,39 +116,37 @@ export default function AppellationFormPage() {
             </div>
 
             <div className="bg-white shadow rounded-lg p-6">
-              <h2 className="text-lg font-medium text-gray-900 mb-4">Caractéristiques techniques</h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <h2 className="text-lg font-medium text-gray-900 mb-4">Dégustation et notes</h2>
+              <div className="space-y-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700">
-                    Rendement maximum (hl/ha)
+                    Notes de dégustation
                   </label>
-                  <input
-                    type="text"
+                  <textarea
+                    rows={3}
                     className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                    placeholder="ex: 55"
-                  />
+                    placeholder="Arômes, saveurs, structure, longueur en bouche..."
+                  ></textarea>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700">
-                    Degré minimum
+                    Accords mets et vins
                   </label>
-                  <input
-                    type="text"
+                  <textarea
+                    rows={2}
                     className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                    placeholder="ex: 11,5"
-                  />
-                  <p className="mt-1 text-xs text-gray-500">Utilisez la virgule comme séparateur décimal</p>
+                    placeholder="Suggestions d'accords culinaires..."
+                  ></textarea>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700">
-                    Année de création AOC
+                    Température de service
                   </label>
                   <input
                     type="text"
                     className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                    placeholder="ex: 1 977"
+                    placeholder="ex: 12-14°C"
                   />
-                  <p className="mt-1 text-xs text-gray-500">Les espaces sont autorisés</p>
                 </div>
               </div>
             </div>
@@ -137,7 +162,7 @@ export default function AppellationFormPage() {
                 type="submit"
                 className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
               >
-                Créer l&apos;appellation
+                Créer le vin
               </button>
             </div>
           </form>

@@ -42,84 +42,8 @@ export default function AdminAppellationsPage() {
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 <tr>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm font-medium text-gray-900">Côtes de Provence</div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-500">Var, Bouches-du-Rhône, Alpes-Maritimes</div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-pink-100 text-pink-800">
-                      Rosé
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    20,000
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    400+
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <Link href="/admin/appellations/1/edit" className="text-indigo-600 hover:text-indigo-900 mr-3">
-                      Modifier
-                    </Link>
-                    <button className="text-red-600 hover:text-red-900">
-                      Supprimer
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm font-medium text-gray-900">Bandol</div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-500">Var</div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-                      Rouge
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    1,600
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    50
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <Link href="/admin/appellations/2/edit" className="text-indigo-600 hover:text-indigo-900 mr-3">
-                      Modifier
-                    </Link>
-                    <button className="text-red-600 hover:text-red-900">
-                      Supprimer
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm font-medium text-gray-900">Cassis</div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-500">Bouches-du-Rhône</div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                      Blanc
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    210
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    12
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <Link href="/admin/appellations/3/edit" className="text-indigo-600 hover:text-indigo-900 mr-3">
-                      Modifier
-                    </Link>
-                    <button className="text-red-600 hover:text-red-900">
-                      Supprimer
-                    </button>
+                  <td colSpan={6} className="px-6 py-4 text-center text-gray-500">
+                    Aucune appellation enregistrée. Cliquez sur &quot;Nouvelle Appellation&quot; pour commencer.
                   </td>
                 </tr>
               </tbody>
@@ -129,19 +53,19 @@ export default function AdminAppellationsPage() {
           <div className="mt-8 grid grid-cols-1 md:grid-cols-4 gap-6">
             <div className="bg-white p-6 rounded-lg shadow">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Total Appellations</h3>
-              <p className="text-3xl font-bold text-blue-600">6</p>
+              <p className="text-3xl font-bold text-blue-600">0</p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Superficie Totale</h3>
-              <p className="text-3xl font-bold text-green-600">22,000 ha</p>
+              <p className="text-3xl font-bold text-green-600">0 ha</p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Domaines</h3>
-              <p className="text-3xl font-bold text-purple-600">500+</p>
+              <p className="text-3xl font-bold text-purple-600">0</p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Production</h3>
-              <p className="text-3xl font-bold text-orange-600">1.2M hl</p>
+              <p className="text-3xl font-bold text-orange-600">0 hl</p>
             </div>
           </div>
         </div>
