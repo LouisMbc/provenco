@@ -1,16 +1,62 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { SupabaseService } from '@/lib/supabaseService';
 import VilleCard from '@/components/VilleCard';
 import { Ville } from '@/types/database';
 import Link from 'next/link';
 
-export default async function VillesPage() {
-  let villes: Ville[] = [];
-  try {
-    villes = await SupabaseService.getVilles();
-  } catch (error) {
-    console.error('Erreur lors du chargement des villes:', error);
-    villes = [];
-  }
+// Mapping des codes départements
+const departementsMap: { [key: string]: string } = {
+  '13': 'Bouches-du-Rhône',
+  '83': 'Var', 
+  '84': 'Vaucluse',
+  '04': 'Alpes-de-Haute-Provence',
+  '05': 'Hautes-Alpes',
+  '06': 'Alpes-Maritimes'
+};
+
+export default function VillesPage() {
+  const [villes, setVilles] = useState<Ville[]>([]);
+  const [filteredVilles, setFilteredVilles] = useState<Ville[]>([]);
+  const [loading, setLoading] = useState(true);
+  const searchParams = useSearchParams();
+  const dept = searchParams.get('dept');
+
+  useEffect(() => {
+    async function loadVilles() {
+      try {
+        setLoading(true);
+        const data = await SupabaseService.getVilles();
+        setVilles(data);
+      } catch (error) {
+        console.error('Erreur lors du chargement des villes:', error);
+        setVilles([]);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadVilles();
+  }, []);
+
+  useEffect(() => {
+    if (!villes.length) return;
+
+    if (dept) {
+      const nomDepartement = departementsMap[dept];
+      if (nomDepartement) {
+        const filtered = villes.filter(ville => 
+          ville.departement === nomDepartement
+        );
+        setFilteredVilles(filtered);
+      } else {
+        setFilteredVilles(villes);
+      }
+    } else {
+      setFilteredVilles(villes);
+    }
+  }, [villes, dept]);
 
   return (
     <div className="bg-gradient-to-b from-amber-50 to-white min-h-screen">
@@ -38,7 +84,8 @@ export default async function VillesPage() {
             Voir sur la carte
           </Link>
           <div className="text-center text-sm text-amber-600">
-            {villes.length} ville{villes.length > 1 ? 's' : ''} de Provence
+            {dept ? `${filteredVilles.length} ville${filteredVilles.length > 1 ? 's' : ''} en ${departementsMap[dept]}` 
+                  : `${villes.length} ville${villes.length > 1 ? 's' : ''} de Provence`}
           </div>
         </div>
 
@@ -46,40 +93,65 @@ export default async function VillesPage() {
         <div className="mt-16 flex flex-wrap justify-center gap-4">
           <Link
             href="/villes"
-            className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-amber-100 text-amber-800 hover:bg-amber-200 transition-colors"
+            className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+              !dept 
+                ? 'bg-amber-100 text-amber-800 hover:bg-amber-200' 
+                : 'bg-white text-amber-700 border border-amber-300 hover:bg-amber-50'
+            }`}
           >
             Toutes les villes
           </Link>
           <Link
             href="/villes?dept=13"
-            className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-white text-amber-700 border border-amber-300 hover:bg-amber-50 transition-colors"
+            className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+              dept === '13' 
+                ? 'bg-amber-100 text-amber-800 hover:bg-amber-200' 
+                : 'bg-white text-amber-700 border border-amber-300 hover:bg-amber-50'
+            }`}
           >
             Bouches-du-Rhône (13)
           </Link>
           <Link
             href="/villes?dept=83"
-            className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-white text-amber-700 border border-amber-300 hover:bg-amber-50 transition-colors"
+            className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+              dept === '83' 
+                ? 'bg-amber-100 text-amber-800 hover:bg-amber-200' 
+                : 'bg-white text-amber-700 border border-amber-300 hover:bg-amber-50'
+            }`}
           >
             Var (83)
           </Link>
           <Link
             href="/villes?dept=84"
-            className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-white text-amber-700 border border-amber-300 hover:bg-amber-50 transition-colors"
+            className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+              dept === '84' 
+                ? 'bg-amber-100 text-amber-800 hover:bg-amber-200' 
+                : 'bg-white text-amber-700 border border-amber-300 hover:bg-amber-50'
+            }`}
           >
             Vaucluse (84)
           </Link>
           <Link
             href="/villes?dept=04"
-            className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-white text-amber-700 border border-amber-300 hover:bg-amber-50 transition-colors"
+            className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+              dept === '04' 
+                ? 'bg-amber-100 text-amber-800 hover:bg-amber-200' 
+                : 'bg-white text-amber-700 border border-amber-300 hover:bg-amber-50'
+            }`}
           >
             Alpes-de-Haute-Provence (04)
           </Link>
         </div>
 
         {/* Grille des villes */}
-        {villes.length > 0 ? (
+        {loading ? (
+          <div className="mt-16 text-center">
+            <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-amber-600"></div>
+            <p className="mt-2 text-amber-600">Chargement des villes...</p>
+          </div>
+        ) : filteredVilles.length > 0 ? (
           <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {villes.map((ville) => (
+            {filteredVilles.map((ville) => (
               <VilleCard key={ville.id} ville={ville} />
             ))}
           </div>
@@ -87,9 +159,11 @@ export default async function VillesPage() {
           <div className="mt-16 text-center">
             <div className="mx-auto max-w-md">
               <span className="text-6xl mb-4 block">🏛️</span>
-              <h3 className="text-lg font-semibold text-amber-900">Aucune ville trouvée</h3>
+              <h3 className="text-lg font-semibold text-amber-900">
+                {dept ? `Aucune ville trouvée en ${departementsMap[dept]}` : 'Aucune ville trouvée'}
+              </h3>
               <p className="mt-2 text-amber-600">
-                Les données des villes seront bientôt disponibles. En attendant, vous pouvez explorer les autres sections.
+                {dept ? 'Aucune ville disponible pour ce département.' : 'Les données des villes seront bientôt disponibles.'}
               </p>
             </div>
           </div>

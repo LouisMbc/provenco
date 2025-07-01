@@ -1,16 +1,55 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { SupabaseService } from '@/lib/supabaseService';
 import { Histoire } from '@/types/database';
 import { ClockIcon, MapPinIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
+import SimpleContentDisplay from '@/components/SimpleContentDisplay';
 
-export default async function HistoiresPage() {
-  let histoires: Histoire[] = [];
-  try {
-    histoires = await SupabaseService.getHistoires();
-  } catch (error) {
-    console.error('Erreur lors du chargement des histoires:', error);
-    histoires = [];
-  }
+export default function HistoiresPage() {
+  const [histoires, setHistoires] = useState<Histoire[]>([]);
+  const [filteredHistoires, setFilteredHistoires] = useState<Histoire[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [villeName, setVilleName] = useState<string>('');
+  const searchParams = useSearchParams();
+  const villeId = searchParams.get('ville');
+
+  useEffect(() => {
+    async function loadHistoires() {
+      try {
+        setLoading(true);
+        const data = await SupabaseService.getHistoires();
+        setHistoires(data);
+      } catch (error) {
+        console.error('Erreur lors du chargement des histoires:', error);
+        setHistoires([]);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadHistoires();
+  }, []);
+
+  useEffect(() => {
+    if (!histoires.length) return;
+
+    if (villeId) {
+      const filtered = histoires.filter(histoire => 
+        histoire.ville_id === parseInt(villeId)
+      );
+      setFilteredHistoires(filtered);
+      
+      // Récupérer le nom de la ville pour l'affichage
+      if (filtered.length > 0 && filtered[0].ville) {
+        setVilleName(filtered[0].ville.nom);
+      }
+    } else {
+      setFilteredHistoires(histoires);
+      setVilleName('');
+    }
+  }, [histoires, villeId]);
 
   return (
     <div className="bg-gradient-to-b from-amber-50 to-white min-h-screen">
@@ -18,18 +57,35 @@ export default async function HistoiresPage() {
         {/* Header de la page */}
         <div className="mx-auto max-w-2xl text-center">
           <h1 className="text-4xl font-bold tracking-tight text-amber-900 sm:text-5xl font-playfair">
-            Histoires de Provence
+            {villeName ? `Histoires de ${villeName}` : 'Histoires de Provence'}
           </h1>
           <p className="mt-6 text-lg leading-8 text-amber-700">
-            Plongez dans les récits fascinants qui ont façonné l&apos;identité provençale à travers les siècles. 
-            Chaque ville raconte son histoire unique, mélange de grandeur et de traditions.
+            {villeName 
+              ? `Découvrez les récits fascinants de ${villeName} et son patrimoine historique unique.`
+              : 'Plongez dans les récits fascinants qui ont façonné l\'identité provençale à travers les siècles.'
+            }
           </p>
+          {villeName && (
+            <div className="mt-4">
+              <Link
+                href="/histoires"
+                className="inline-flex items-center text-sm font-medium text-amber-600 hover:text-orange-600"
+              >
+                ← Voir toutes les histoires de Provence
+              </Link>
+            </div>
+          )}
         </div>
 
         {/* Liste des histoires */}
-        {histoires.length > 0 ? (
+        {loading ? (
+          <div className="mt-16 text-center">
+            <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-amber-600"></div>
+            <p className="mt-2 text-amber-600">Chargement des histoires...</p>
+          </div>
+        ) : filteredHistoires.length > 0 ? (
           <div className="mt-16 space-y-8">
-            {histoires.map((histoire) => (
+            {filteredHistoires.map((histoire) => (
               <article key={histoire.id} className="bg-white rounded-xl shadow-md border border-amber-200 overflow-hidden hover:shadow-lg transition-shadow duration-300">
                 <div className="p-8">
                   <div className="flex items-start justify-between mb-4">
@@ -62,11 +118,10 @@ export default async function HistoiresPage() {
                     )}
                   </div>
                   
-                  <div className="prose prose-amber max-w-none">
-                    <p className="text-amber-800 leading-relaxed">
-                      {histoire.contenu}
-                    </p>
-                  </div>
+                  <SimpleContentDisplay 
+                    content={histoire.contenu}
+                    className="text-amber-800"
+                  />
                   
                   {histoire.ville && (
                     <div className="mt-6 pt-6 border-t border-amber-100">

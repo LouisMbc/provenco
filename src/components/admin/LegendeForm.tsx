@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Legende, Ville } from '@/types/database';
 import { SupabaseService } from '@/lib/supabaseService';
+import SimpleEditor from '@/components/SimpleEditor';
 
 interface LegendeFormProps {
   legende?: Legende;
@@ -157,17 +158,20 @@ export default function LegendeForm({ legende, onSubmit, onCancel, loading = fal
           <label htmlFor="contenu" className="block text-sm font-medium text-amber-700">
             Contenu de la légende *
           </label>
-          <textarea
-            id="contenu"
-            name="contenu"
-            value={formData.contenu}
-            onChange={handleChange}
-            rows={12}
-            className={`mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500 ${
-              errors.contenu ? 'border-red-300' : 'border-amber-300'
-            }`}
-            placeholder="Racontez cette légende provençale..."
-          />
+          <div className="mt-1">
+            <SimpleEditor
+              content={formData.contenu}
+              onChange={(content: string) => {
+                setFormData(prev => ({ ...prev, contenu: content }));
+                if (errors.contenu) {
+                  setErrors(prev => ({ ...prev, contenu: '' }));
+                }
+              }}
+              placeholder="Racontez cette légende provençale..."
+              bucket="legende"
+              entityId={legende?.id}
+            />
+          </div>
           {errors.contenu && (
             <p className="mt-1 text-sm text-red-600">{errors.contenu}</p>
           )}

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Histoire, Ville } from '@/types/database';
 import { SupabaseService } from '@/lib/supabaseService';
+import SimpleEditor from '@/components/SimpleEditor';
 
 interface HistoireFormProps {
   histoire?: Histoire;
@@ -16,7 +17,10 @@ export default function HistoireForm({ histoire, onSubmit, onCancel, loading = f
     ville_id: histoire?.ville_id?.toString() || '',
     titre: histoire?.titre || '',
     contenu: histoire?.contenu || '',
-    periode: histoire?.periode || ''
+    periode: histoire?.periode || '',
+    image_url: histoire?.image_url || '',
+    image_alt: histoire?.image_alt || '',
+    image_caption: histoire?.image_caption || ''
   });
 
   const [villes, setVilles] = useState<Ville[]>([]);
@@ -65,7 +69,10 @@ export default function HistoireForm({ histoire, onSubmit, onCancel, loading = f
       ville_id: parseInt(formData.ville_id),
       titre: formData.titre.trim(),
       contenu: formData.contenu.trim(),
-      periode: formData.periode.trim() || undefined
+      periode: formData.periode.trim() || undefined,
+      image_url: formData.image_url.trim() || undefined,
+      image_alt: formData.image_alt.trim() || undefined,
+      image_caption: formData.image_caption.trim() || undefined
     };
     
     await onSubmit(histoireData);
@@ -75,9 +82,16 @@ export default function HistoireForm({ histoire, onSubmit, onCancel, loading = f
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
     
-    // Effacer l'erreur quand l'utilisateur corrige le champ
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: '' }));
+    }
+  };
+
+  const handleContentChange = (content: string) => {
+    setFormData(prev => ({ ...prev, contenu: content }));
+    
+    if (errors.contenu) {
+      setErrors(prev => ({ ...prev, contenu: '' }));
     }
   };
 
@@ -85,7 +99,6 @@ export default function HistoireForm({ histoire, onSubmit, onCancel, loading = f
     <div className="bg-white shadow-lg rounded-lg p-8">
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Ville */}
           <div>
             <label htmlFor="ville_id" className="block text-sm font-medium text-amber-700">
               Ville de Provence *
@@ -100,22 +113,18 @@ export default function HistoireForm({ histoire, onSubmit, onCancel, loading = f
               }`}
               required
             >
-              <option value="">Choisissez la ville concernée par cette histoire</option>
+              <option value="">Choisissez la ville concernée</option>
               {villes.map((ville) => (
                 <option key={ville.id} value={ville.id}>
                   {ville.nom} {ville.departement && `(${ville.departement})`}
                 </option>
               ))}
             </select>
-            <p className="mt-1 text-xs text-amber-600">
-              Chaque histoire doit être rattachée à une ville de Provence
-            </p>
             {errors.ville_id && (
               <p className="mt-1 text-sm text-red-600">{errors.ville_id}</p>
             )}
           </div>
 
-          {/* Période */}
           <div>
             <label htmlFor="periode" className="block text-sm font-medium text-amber-700">
               Période historique
@@ -126,13 +135,12 @@ export default function HistoireForm({ histoire, onSubmit, onCancel, loading = f
               name="periode"
               value={formData.periode}
               onChange={handleChange}
-              placeholder="Ex: Antiquité, Moyen Âge, Renaissance..."
+              placeholder="Ex: Antiquité, Moyen Âge..."
               className="mt-1 block w-full px-3 py-2 border border-amber-300 rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500"
             />
           </div>
         </div>
 
-        {/* Titre */}
         <div>
           <label htmlFor="titre" className="block text-sm font-medium text-amber-700">
             Titre de l&apos;histoire *
@@ -146,34 +154,29 @@ export default function HistoireForm({ histoire, onSubmit, onCancel, loading = f
             className={`mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500 ${
               errors.titre ? 'border-red-300' : 'border-amber-300'
             }`}
+            placeholder="Un titre captivant..."
           />
           {errors.titre && (
             <p className="mt-1 text-sm text-red-600">{errors.titre}</p>
           )}
         </div>
 
-        {/* Contenu */}
         <div>
-          <label htmlFor="contenu" className="block text-sm font-medium text-amber-700">
+          <label className="block text-sm font-medium text-amber-700 mb-2">
             Contenu de l&apos;histoire *
           </label>
-          <textarea
-            id="contenu"
-            name="contenu"
-            value={formData.contenu}
-            onChange={handleChange}
-            rows={12}
-            className={`mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500 ${
-              errors.contenu ? 'border-red-300' : 'border-amber-300'
-            }`}
-            placeholder="Racontez l'histoire de cette ville de Provence..."
+          <SimpleEditor
+            content={formData.contenu}
+            onChange={handleContentChange}
+            placeholder="Racontez l'histoire fascinante de cette ville de Provence..."
+            bucket="histoire"
+            entityId={histoire?.id}
           />
           {errors.contenu && (
             <p className="mt-1 text-sm text-red-600">{errors.contenu}</p>
           )}
         </div>
 
-        {/* Boutons */}
         <div className="flex justify-end space-x-4 pt-6">
           <button
             type="button"
@@ -194,7 +197,7 @@ export default function HistoireForm({ histoire, onSubmit, onCancel, loading = f
                 {histoire ? 'Modification...' : 'Création...'}
               </div>
             ) : (
-              histoire ? 'Modifier' : 'Créer'
+              histoire ? 'Modifier l\'histoire' : 'Créer l\'histoire'
             )}
           </button>
         </div>

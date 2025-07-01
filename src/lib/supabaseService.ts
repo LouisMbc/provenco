@@ -1,5 +1,5 @@
 import { supabase } from './supabaseClient';
-import { Ville, VilleWithRelations, Histoire, Legende, Monument, Image } from '@/types/database';
+import { Ville, VilleWithRelations, Histoire, Legende, Monument, Image, Vin, Appellation, Cepage, Domaine, TypeVin } from '@/types/database';
 
 export class SupabaseService {
   // Villes
@@ -20,8 +20,7 @@ export class SupabaseService {
         *,
         histoires:histoire(*),
         legendes:legende(*),
-        monuments:monument(*),
-        images:image(*)
+        monuments:monument(*)
       `)
       .eq('id', id)
       .single();
@@ -387,6 +386,314 @@ export class SupabaseService {
   static async deleteImage(id: number) {
     const { error } = await supabase
       .from('image')
+      .delete()
+      .eq('id', id);
+    
+    if (error) throw error;
+  }
+
+  // VINS - CRUD
+  static async getVins(): Promise<Vin[]> {
+    const { data, error } = await supabase
+      .from('vin')
+      .select(`
+        *,
+        appellation:appellation(*),
+        domaine:domaine(*),
+        type_vin:type_vin(*)
+      `)
+      .order('nom');
+    
+    if (error) throw error;
+    return data || [];
+  }
+
+  static async getVinById(id: number): Promise<Vin | null> {
+    const { data, error } = await supabase
+      .from('vin')
+      .select(`
+        *,
+        appellation:appellation(*),
+        domaine:domaine(*),
+        type_vin:type_vin(*)
+      `)
+      .eq('id', id)
+      .single();
+    
+    if (error) {
+      if (error.code === 'PGRST116') return null;
+      throw error;
+    }
+    return data;
+  }
+
+  static async createVin(vin: Omit<Vin, 'id'>) {
+    const { data, error } = await supabase
+      .from('vin')
+      .insert([vin])
+      .select()
+      .single();
+    
+    if (error) throw error;
+    return data;
+  }
+
+  static async updateVin(id: number, updates: Partial<Vin>) {
+    const { data, error } = await supabase
+      .from('vin')
+      .update(updates)
+      .eq('id', id)
+      .select()
+      .single();
+    
+    if (error) throw error;
+    return data;
+  }
+
+  static async deleteVin(id: number) {
+    const { error } = await supabase
+      .from('vin')
+      .delete()
+      .eq('id', id);
+    
+    if (error) throw error;
+  }
+
+  // APPELLATIONS - CRUD
+  static async getAppellations(): Promise<Appellation[]> {
+    const { data, error } = await supabase
+      .from('appellation')
+      .select('*')
+      .order('nom');
+    
+    if (error) throw error;
+    return data || [];
+  }
+
+  static async getAppellationById(id: number): Promise<Appellation | null> {
+    const { data, error } = await supabase
+      .from('appellation')
+      .select(`
+        *,
+        domaines:domaine(*),
+        vins:vin(*)
+      `)
+      .eq('id', id)
+      .single();
+    
+    if (error) {
+      if (error.code === 'PGRST116') return null;
+      throw error;
+    }
+    return data;
+  }
+
+  static async createAppellation(appellation: Omit<Appellation, 'id'>) {
+    const { data, error } = await supabase
+      .from('appellation')
+      .insert([appellation])
+      .select()
+      .single();
+    
+    if (error) throw error;
+    return data;
+  }
+
+  static async updateAppellation(id: number, updates: Partial<Appellation>) {
+    const { data, error } = await supabase
+      .from('appellation')
+      .update(updates)
+      .eq('id', id)
+      .select()
+      .single();
+    
+    if (error) throw error;
+    return data;
+  }
+
+  static async deleteAppellation(id: number) {
+    const { error } = await supabase
+      .from('appellation')
+      .delete()
+      .eq('id', id);
+    
+    if (error) throw error;
+  }
+
+  // CÉPAGES - CRUD
+  static async getCepages(): Promise<Cepage[]> {
+    const { data, error } = await supabase
+      .from('cepage')
+      .select('*')
+      .order('nom');
+    
+    if (error) throw error;
+    return data || [];
+  }
+
+  static async getCepageById(id: number): Promise<Cepage | null> {
+    const { data, error } = await supabase
+      .from('cepage')
+      .select('*')
+      .eq('id', id)
+      .single();
+    
+    if (error) {
+      if (error.code === 'PGRST116') return null;
+      throw error;
+    }
+    return data;
+  }
+
+  static async createCepage(cepage: Omit<Cepage, 'id'>) {
+    const { data, error } = await supabase
+      .from('cepage')
+      .insert([cepage])
+      .select()
+      .single();
+    
+    if (error) throw error;
+    return data;
+  }
+
+  static async updateCepage(id: number, updates: Partial<Cepage>) {
+    const { data, error } = await supabase
+      .from('cepage')
+      .update(updates)
+      .eq('id', id)
+      .select()
+      .single();
+    
+    if (error) throw error;
+    return data;
+  }
+
+  static async deleteCepage(id: number) {
+    const { error } = await supabase
+      .from('cepage')
+      .delete()
+      .eq('id', id);
+    
+    if (error) throw error;
+  }
+
+  // DOMAINES - CRUD
+  static async getDomaines(): Promise<Domaine[]> {
+    const { data, error } = await supabase
+      .from('domaine')
+      .select(`
+        *,
+        ville:ville(*),
+        appellation:appellation(*)
+      `)
+      .order('nom');
+    
+    if (error) throw error;
+    return data || [];
+  }
+
+  static async getDomaineById(id: number): Promise<Domaine | null> {
+    const { data, error } = await supabase
+      .from('domaine')
+      .select(`
+        *,
+        ville:ville(*),
+        appellation:appellation(*),
+        vins:vin(*)
+      `)
+      .eq('id', id)
+      .single();
+    
+    if (error) {
+      if (error.code === 'PGRST116') return null;
+      throw error;
+    }
+    return data;
+  }
+
+  static async createDomaine(domaine: Omit<Domaine, 'id'>) {
+    const { data, error } = await supabase
+      .from('domaine')
+      .insert([domaine])
+      .select()
+      .single();
+    
+    if (error) throw error;
+    return data;
+  }
+
+  static async updateDomaine(id: number, updates: Partial<Domaine>) {
+    const { data, error } = await supabase
+      .from('domaine')
+      .update(updates)
+      .eq('id', id)
+      .select()
+      .single();
+    
+    if (error) throw error;
+    return data;
+  }
+
+  static async deleteDomaine(id: number) {
+    const { error } = await supabase
+      .from('domaine')
+      .delete()
+      .eq('id', id);
+    
+    if (error) throw error;
+  }
+
+  // TYPES DE VIN - CRUD
+  static async getTypesVin(): Promise<TypeVin[]> {
+    const { data, error } = await supabase
+      .from('type_vin')
+      .select('*')
+      .order('nom');
+    
+    if (error) throw error;
+    return data || [];
+  }
+
+  static async getTypeVinById(id: number): Promise<TypeVin | null> {
+    const { data, error } = await supabase
+      .from('type_vin')
+      .select('*')
+      .eq('id', id)
+      .single();
+    
+    if (error) {
+      if (error.code === 'PGRST116') return null;
+      throw error;
+    }
+    return data;
+  }
+
+  static async createTypeVin(typeVin: Omit<TypeVin, 'id'>) {
+    const { data, error } = await supabase
+      .from('type_vin')
+      .insert([typeVin])
+      .select()
+      .single();
+    
+    if (error) throw error;
+    return data;
+  }
+
+  static async updateTypeVin(id: number, updates: Partial<TypeVin>) {
+    const { data, error } = await supabase
+      .from('type_vin')
+      .update(updates)
+      .eq('id', id)
+      .select()
+      .single();
+    
+    if (error) throw error;
+    return data;
+  }
+
+  static async deleteTypeVin(id: number) {
+    const { error } = await supabase
+      .from('type_vin')
       .delete()
       .eq('id', id);
     

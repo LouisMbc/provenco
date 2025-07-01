@@ -1,71 +1,51 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Monument, Ville } from '@/types/database';
+import { Domaine, Ville, Appellation } from '@/types/database';
 import { SupabaseService } from '@/lib/supabaseService';
 import SimpleEditor from '@/components/SimpleEditor';
 
-interface MonumentFormProps {
-  monument?: Monument;
-  onSubmit: (monumentData: Omit<Monument, 'id'>) => Promise<void>;
+interface DomaineFormProps {
+  domaine?: Domaine;
+  onSubmit: (domaineData: Omit<Domaine, 'id'>) => Promise<void>;
   onCancel: () => void;
   loading?: boolean;
 }
 
-export default function MonumentForm({ monument, onSubmit, onCancel, loading = false }: MonumentFormProps) {
+export default function DomaineForm({ domaine, onSubmit, onCancel, loading = false }: DomaineFormProps) {
   const [formData, setFormData] = useState({
-    ville_id: monument?.ville_id?.toString() || '',
-    nom: monument?.nom || '',
-    type: monument?.type || '',
-    date_construction: monument?.date_construction || '',
-    description: monument?.description || ''
+    nom: domaine?.nom || '',
+    ville_id: domaine?.ville_id?.toString() || '',
+    adresse: domaine?.adresse || '',
+    description: domaine?.description || '',
+    appellation_id: domaine?.appellation_id?.toString() || ''
   });
 
   const [villes, setVilles] = useState<Ville[]>([]);
+  const appellations: Appellation[] = []; // TODO: Load appellations from API
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const typesMonuments = [
-    'Église',
-    'Cathédrale',
-    'Château',
-    'Palais',
-    'Tour',
-    'Beffroi',
-    'Pont',
-    'Aqueduc',
-    'Amphithéâtre',
-    'Théâtre',
-    'Musée',
-    'Abbaye',
-    'Chapelle',
-    'Fort',
-    'Porte',
-    'Fontaine',
-    'Autre'
-  ];
-
   useEffect(() => {
-    loadVilles();
+    loadData();
   }, []);
 
-  const loadVilles = async () => {
+  const loadData = async () => {
     try {
-      const data = await SupabaseService.getVilles();
-      setVilles(data);
+      const villesData = await SupabaseService.getVilles();
+      setVilles(villesData);
+      // TODO: Charger les appellations
+      // const appellationsData = await SupabaseService.getAppellations();
+      // setAppellations(appellationsData);
     } catch (error) {
-      console.error('Erreur lors du chargement des villes:', error);
+      console.error('Erreur lors du chargement des données:', error);
     }
   };
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
     
-    if (!formData.ville_id.trim()) {
-      newErrors.ville_id = 'La ville est requise';
-    }
-    
     if (!formData.nom.trim()) {
-      newErrors.nom = 'Le nom est requis';
+      newErrors.nom = 'Le nom du domaine est requis';
     }
     
     setErrors(newErrors);
@@ -79,18 +59,18 @@ export default function MonumentForm({ monument, onSubmit, onCancel, loading = f
       return;
     }
     
-    const monumentData: Omit<Monument, 'id'> = {
-      ville_id: parseInt(formData.ville_id),
+    const domaineData: Omit<Domaine, 'id'> = {
       nom: formData.nom.trim(),
-      type: formData.type.trim() || undefined,
-      date_construction: formData.date_construction.trim() || undefined,
-      description: formData.description.trim() || undefined
+      ville_id: formData.ville_id ? parseInt(formData.ville_id) : undefined,
+      adresse: formData.adresse.trim() || undefined,
+      description: formData.description.trim() || undefined,
+      appellation_id: formData.appellation_id ? parseInt(formData.appellation_id) : undefined
     };
     
-    await onSubmit(monumentData);
+    await onSubmit(domaineData);
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
     
@@ -104,98 +84,90 @@ export default function MonumentForm({ monument, onSubmit, onCancel, loading = f
     <div className="bg-white shadow-lg rounded-lg p-8">
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Nom */}
+          <div>
+            <label htmlFor="nom" className="block text-sm font-medium text-amber-700">
+              Nom du domaine *
+            </label>
+            <input
+              type="text"
+              id="nom"
+              name="nom"
+              value={formData.nom}
+              onChange={handleChange}
+              className={`mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500 ${
+                errors.nom ? 'border-red-300' : 'border-amber-300'
+              }`}
+              placeholder="Ex: Château de Provence, Domaine des Oliviers..."
+            />
+            {errors.nom && (
+              <p className="mt-1 text-sm text-red-600">{errors.nom}</p>
+            )}
+          </div>
+
           {/* Ville */}
           <div>
             <label htmlFor="ville_id" className="block text-sm font-medium text-amber-700">
-              Ville de Provence *
+              Ville
             </label>
             <select
               id="ville_id"
               name="ville_id"
               value={formData.ville_id}
               onChange={handleChange}
-              className={`mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500 ${
-                errors.ville_id ? 'border-red-300' : 'border-amber-300'
-              }`}
-              required
+              className="mt-1 block w-full px-3 py-2 border border-amber-300 rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500"
             >
-              <option value="">Choisissez la ville où se trouve ce monument</option>
+              <option value="">Sélectionnez une ville</option>
               {villes.map((ville) => (
                 <option key={ville.id} value={ville.id}>
                   {ville.nom} {ville.departement && `(${ville.departement})`}
                 </option>
               ))}
             </select>
-            <p className="mt-1 text-xs text-amber-600">
-              Chaque monument doit être rattaché à une ville de Provence
-            </p>
-            {errors.ville_id && (
-              <p className="mt-1 text-sm text-red-600">{errors.ville_id}</p>
-            )}
           </div>
 
-          {/* Type */}
+          {/* Appellation */}
           <div>
-            <label htmlFor="type" className="block text-sm font-medium text-amber-700">
-              Type de monument
+            <label htmlFor="appellation_id" className="block text-sm font-medium text-amber-700">
+              Appellation
             </label>
             <select
-              id="type"
-              name="type"
-              value={formData.type}
+              id="appellation_id"
+              name="appellation_id"
+              value={formData.appellation_id}
               onChange={handleChange}
               className="mt-1 block w-full px-3 py-2 border border-amber-300 rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500"
             >
-              <option value="">Sélectionnez un type</option>
-              {typesMonuments.map((type) => (
-                <option key={type} value={type}>
-                  {type}
+              <option value="">Sélectionnez une appellation</option>
+              {appellations.map((appellation) => (
+                <option key={appellation.id} value={appellation.id}>
+                  {appellation.nom}
                 </option>
               ))}
             </select>
           </div>
         </div>
 
-        {/* Nom */}
+        {/* Adresse */}
         <div>
-          <label htmlFor="nom" className="block text-sm font-medium text-amber-700">
-            Nom du monument *
+          <label htmlFor="adresse" className="block text-sm font-medium text-amber-700">
+            Adresse
           </label>
           <input
             type="text"
-            id="nom"
-            name="nom"
-            value={formData.nom}
+            id="adresse"
+            name="adresse"
+            value={formData.adresse}
             onChange={handleChange}
-            className={`mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500 ${
-              errors.nom ? 'border-red-300' : 'border-amber-300'
-            }`}
-          />
-          {errors.nom && (
-            <p className="mt-1 text-sm text-red-600">{errors.nom}</p>
-          )}
-        </div>
-
-        {/* Date de construction */}
-        <div>
-          <label htmlFor="date_construction" className="block text-sm font-medium text-amber-700">
-            Date ou période de construction
-          </label>
-          <input
-            type="text"
-            id="date_construction"
-            name="date_construction"
-            value={formData.date_construction}
-            onChange={handleChange}
-            placeholder="Ex: XIIe siècle, 1150, 12ème siècle..."
             className="mt-1 block w-full px-3 py-2 border border-amber-300 rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500"
+            placeholder="Adresse complète du domaine"
           />
         </div>
 
         {/* Description */}
         <div>
           <label htmlFor="description" className="block text-sm font-medium text-amber-700">
-            Description du monument
+            Description du domaine
           </label>
           <div className="mt-1">
             <SimpleEditor
@@ -203,9 +175,9 @@ export default function MonumentForm({ monument, onSubmit, onCancel, loading = f
               onChange={(content: string) => {
                 setFormData(prev => ({ ...prev, description: content }));
               }}
-              placeholder="Décrivez ce monument, son histoire, son architecture..."
-              bucket="monument"
-              entityId={monument?.id}
+              placeholder="Décrivez ce domaine, son histoire, ses méthodes de vinification, son terroir..."
+              bucket="domaine"
+              entityId={domaine?.id}
             />
           </div>
         </div>
@@ -228,10 +200,10 @@ export default function MonumentForm({ monument, onSubmit, onCancel, loading = f
             {loading ? (
               <div className="flex items-center">
                 <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                {monument ? 'Modification...' : 'Création...'}
+                {domaine ? 'Modification...' : 'Création...'}
               </div>
             ) : (
-              monument ? 'Modifier' : 'Créer'
+              domaine ? 'Modifier' : 'Créer'
             )}
           </button>
         </div>

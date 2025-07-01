@@ -2,6 +2,7 @@ import { SupabaseService } from '@/lib/supabaseService';
 import { Monument } from '@/types/database';
 import { BuildingLibraryIcon, MapPinIcon, ClockIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
+import SimpleContentDisplay from '@/components/SimpleContentDisplay';
 
 export default async function MonumentsPage() {
   let monuments: Monument[] = [];
@@ -106,9 +107,9 @@ export default async function MonumentsPage() {
                         </div>
                         
                         {monument.description && (
-                          <p className="text-amber-800 text-sm leading-relaxed line-clamp-3">
-                            {monument.description}
-                          </p>
+                          <div className="text-amber-800 text-sm leading-relaxed line-clamp-3">
+                            <SimpleContentDisplay content={monument.description} />
+                          </div>
                         )}
                         
                         {monument.ville && (

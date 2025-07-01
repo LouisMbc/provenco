@@ -2,6 +2,7 @@ import { SupabaseService } from '@/lib/supabaseService';
 import { Legende } from '@/types/database';
 import { SparklesIcon, MapPinIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
+import SimpleContentDisplay from '@/components/SimpleContentDisplay';
 
 export default async function LegendesPage() {
   let legendes: Legende[] = [];
@@ -59,9 +60,7 @@ export default async function LegendesPage() {
                   </div>
                   
                   <div className="prose prose-amber max-w-none">
-                    <p className="text-amber-800 leading-relaxed">
-                      {legende.contenu}
-                    </p>
+                    <SimpleContentDisplay content={legende.contenu} />
                   </div>
                   
                   {legende.ville && (
