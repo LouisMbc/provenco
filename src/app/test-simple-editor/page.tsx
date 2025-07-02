@@ -4,9 +4,14 @@ import { useState } from 'react';
 import Link from 'next/link';
 import SimpleEditor from '@/components/SimpleEditor';
 import SimpleContentDisplay from '@/components/SimpleContentDisplay';
+import { testSupabaseStorage } from '@/utils/supabase-diagnostic';
 
 export default function TestSimpleEditorPage() {
   const [content, setContent] = useState('<p>Testez l\'éditeur simple ici...</p>');
+
+  const handleDiagnostic = async () => {
+    await testSupabaseStorage();
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">
@@ -18,6 +23,19 @@ export default function TestSimpleEditorPage() {
           <p className="text-gray-600">
             Testez les fonctionnalités : gras, italique, titres, listes et <strong>upload d&apos;images</strong>.
           </p>
+          
+          {/* Bouton de diagnostic */}
+          <div className="mt-4">
+            <button
+              onClick={handleDiagnostic}
+              className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors text-sm"
+            >
+              🔍 Diagnostiquer Supabase Storage
+            </button>
+            <p className="text-xs text-gray-500 mt-1">
+              Vérifiez la console du navigateur après avoir cliqué
+            </p>
+          </div>
         </div>
 
         {/* Éditeur */}
@@ -27,7 +45,7 @@ export default function TestSimpleEditorPage() {
             content={content}
             onChange={setContent}
             placeholder="Écrivez votre contenu ici et ajoutez des images..."
-            bucket="content"
+            bucket="histoire"
             entityId={Date.now()}
           />
         </div>

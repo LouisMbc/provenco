@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Footer() {
   return (
@@ -7,9 +8,15 @@ export default function Footer() {
         <div className="xl:grid xl:grid-cols-3 xl:gap-8">
           <div className="space-y-8">
             <div>
-              <span className="text-2xl font-bold text-amber-100">
-                🌻 Provence Authentique
-              </span>
+              <div className="flex items-center">
+                <Image 
+                  src="/image/logo_prouvenco-removebg-preview.png" 
+                  alt="Logo Provenco" 
+                  width={120} 
+                  height={40} 
+                  className="h-10 w-auto"
+                />
+              </div>
               <p className="text-sm leading-6 text-amber-200 mt-2">
                 Découvrez les trésors cachés de la Provence, ses histoires millénaires, 
                 ses légendes fascinantes et ses monuments emblématiques.

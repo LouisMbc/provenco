@@ -1,6 +1,7 @@
 import Hero from "@/components/Hero";
 import MapCard from "@/components/MapCard";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Home() {
   const features = [
@@ -116,7 +117,13 @@ export default function Home() {
                   <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-amber-100 text-amber-800">
                     {dept.code}
                   </span>
-                  <span className="text-2xl">🌻</span>
+                  <Image 
+                    src="/cigale.png" 
+                    alt="Cigale de Provence" 
+                    width={32} 
+                    height={32}
+                    className="text-amber-600"
+                  />
                 </div>
                 <h3 className="text-lg font-semibold text-amber-900 group-hover:text-orange-600 transition-colors">
                   {dept.name}

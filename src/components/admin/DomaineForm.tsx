@@ -176,7 +176,7 @@ export default function DomaineForm({ domaine, onSubmit, onCancel, loading = fal
                 setFormData(prev => ({ ...prev, description: content }));
               }}
               placeholder="Décrivez ce domaine, son histoire, ses méthodes de vinification, son terroir..."
-              bucket="domaine"
+              bucket="domaines"
               entityId={domaine?.id}
             />
           </div>

@@ -243,7 +243,7 @@ export default function VinForm({ vin, onSubmit, onCancel, loading = false }: Vi
                 setFormData(prev => ({ ...prev, description: content }));
               }}
               placeholder="Décrivez ce vin, ses arômes, sa dégustation, ses accords mets et vins..."
-              bucket="vin"
+              bucket="vins"
               entityId={vin?.id}
             />
           </div>

@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -44,7 +45,15 @@ export default function LoginPage() {
       <div className="max-w-md w-full space-y-8">
         <div>
           <div className="text-center">
-            <span className="text-6xl">🌻</span>
+            <div className="flex justify-center">
+              <Image 
+                src="/cigale.png" 
+                alt="Cigale de Provence" 
+                width={96} 
+                height={96}
+                className="text-amber-600"
+              />
+            </div>
             <h2 className="mt-6 text-3xl font-bold text-amber-900 font-playfair">
               Administration
             </h2>

@@ -23,9 +23,28 @@ const displayStyles = `
   .prose img {
     max-width: 100%;
     height: auto;
-    border-radius: 8px;
-    margin: 16px 0;
-    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    border-radius: 12px;
+    margin: 1.5rem auto;
+    display: block;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .prose img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 10px 10px -5px rgb(0 0 0 / 0.04);
+  }
+
+  .prose figure {
+    margin: 1.5rem 0;
+    text-align: center;
+  }
+
+  .prose figcaption {
+    font-size: 0.875rem;
+    color: #78716c;
+    margin-top: 0.5rem;
+    font-style: italic;
   }
 
   .prose h2 {

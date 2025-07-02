@@ -65,23 +65,34 @@ export default function SimpleEditor({
         const filePath = `${fileName}`;
 
         // Upload vers Supabase Storage
-        const { error } = await supabase.storage
+        const { data, error } = await supabase.storage
           .from(bucket)
           .upload(filePath, file);
 
         if (error) {
-          console.error('Erreur upload:', error);
-          alert('Erreur lors de l\'upload de l\'image');
+          console.error('Erreur upload détaillée:', {
+            message: error.message,
+            bucket: bucket,
+            filePath: filePath,
+            error: error
+          });
+          alert(`Erreur lors de l'upload: ${error.message}. Vérifiez que le bucket '${bucket}' existe dans Supabase.`);
           return;
         }
+
+        console.log('Upload réussi:', data);
 
         // Obtenir l'URL publique
         const { data: { publicUrl } } = supabase.storage
           .from(bucket)
           .getPublicUrl(filePath);
 
-        // Insérer l'image dans l'éditeur
-        editor.chain().focus().setImage({ src: publicUrl }).run();
+        // Insérer l'image dans l'éditeur avec des attributs personnalisés
+        editor.chain().focus().setImage({ 
+          src: publicUrl,
+          alt: `Image ${file.name}`,
+          title: file.name
+        }).run();
       } catch (error) {
         console.error('Erreur:', error);
         alert('Erreur lors de l\'upload de l\'image');
@@ -279,12 +290,26 @@ const editorStyles = `
   }
 
   .ProseMirror img {
+    max-width: 100%;
+    height: auto;
+    margin: 1rem auto;
+    display: block;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     cursor: pointer;
-    transition: transform 0.2s;
+    transition: all 0.3s ease;
   }
 
   .ProseMirror img:hover {
     transform: scale(1.02);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+
+  .ProseMirror img.inline {
+    display: inline;
+    margin: 0 0.5rem;
+    vertical-align: middle;
+    max-width: 200px;
   }
 `;
 

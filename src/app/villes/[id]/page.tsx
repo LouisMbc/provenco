@@ -3,6 +3,7 @@ import { VilleWithRelations } from '@/types/database';
 import { notFound } from 'next/navigation';
 import { MapPinIcon, UsersIcon, ClockIcon, BookOpenIcon, SparklesIcon, BuildingLibraryIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
+import SimpleContentDisplay from '@/components/SimpleContentDisplay';
 
 interface VilleDetailPageProps {
   params: Promise<{
@@ -75,6 +76,46 @@ export default async function VilleDetailPage({ params }: VilleDetailPageProps) 
       </div>
 
       <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
+        {/* Histoire principale */}
+        {ville.histoires && ville.histoires.length > 0 && (
+          <div className="mb-16">
+            <h2 className="text-3xl font-bold text-amber-900 mb-8 font-playfair flex items-center justify-center">
+              <BookOpenIcon className="h-8 w-8 mr-4 text-amber-600" />
+              Histoire de {ville.nom}
+            </h2>
+            <div className="bg-white rounded-2xl shadow-lg border border-amber-200 overflow-hidden">
+              <div className="p-8 lg:p-12">
+                <div className="prose prose-amber max-w-none">
+                  {ville.histoires[0].periode && (
+                    <div className="mb-6 text-center">
+                      <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-amber-100 text-amber-800">
+                        <ClockIcon className="h-4 w-4 mr-2" />
+                        {ville.histoires[0].periode}
+                      </span>
+                    </div>
+                  )}
+                  <h3 className="text-2xl font-bold text-amber-900 mb-6 text-center">
+                    {ville.histoires[0].titre}
+                  </h3>
+                  <div className="text-amber-800 leading-relaxed text-lg">
+                    <SimpleContentDisplay content={ville.histoires[0].contenu} />
+                  </div>
+                </div>
+                {ville.histoires.length > 1 && (
+                  <div className="mt-8 pt-6 border-t border-amber-200 text-center">
+                    <Link
+                      href={`/histoires?ville=${ville.id}`}
+                      className="inline-flex items-center text-amber-600 hover:text-orange-600 font-medium transition-colors"
+                    >
+                      Découvrir {ville.histoires.length - 1} autre{ville.histoires.length > 2 ? 's' : ''} histoire{ville.histoires.length > 2 ? 's' : ''} de {ville.nom} →
+                    </Link>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Statistiques rapides */}
         <div className="grid grid-cols-2 gap-6 sm:grid-cols-4 mb-16">
           <div className="bg-white rounded-lg p-6 shadow-md border border-amber-200 text-center">
@@ -100,15 +141,15 @@ export default async function VilleDetailPage({ params }: VilleDetailPageProps) 
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-          {/* Histoires */}
-          <div>
-            <h2 className="text-2xl font-bold text-amber-900 mb-6 font-playfair flex items-center">
-              <BookOpenIcon className="h-6 w-6 mr-3 text-amber-600" />
-              Histoires
-            </h2>
-            {ville.histoires && ville.histoires.length > 0 ? (
+          {/* Autres histoires */}
+          {ville.histoires && ville.histoires.length > 1 && (
+            <div>
+              <h2 className="text-2xl font-bold text-amber-900 mb-6 font-playfair flex items-center">
+                <BookOpenIcon className="h-6 w-6 mr-3 text-amber-600" />
+                Autres Histoires
+              </h2>
               <div className="space-y-6">
-                {ville.histoires.slice(0, 3).map((histoire) => (
+                {ville.histoires.slice(1, 4).map((histoire) => (
                   <div key={histoire.id} className="bg-white p-6 rounded-xl shadow-md border border-amber-200">
                     <div className="flex items-start justify-between mb-3">
                       <h3 className="text-lg font-semibold text-amber-900">{histoire.titre}</h3>
@@ -119,12 +160,12 @@ export default async function VilleDetailPage({ params }: VilleDetailPageProps) 
                         </span>
                       )}
                     </div>
-                    <p className="text-amber-700 text-sm leading-relaxed line-clamp-3">
-                      {histoire.contenu}
-                    </p>
+                    <div className="text-amber-700 text-sm leading-relaxed line-clamp-3">
+                      <SimpleContentDisplay content={histoire.contenu} />
+                    </div>
                   </div>
                 ))}
-                {ville.histoires.length > 3 && (
+                {ville.histoires.length > 4 && (
                   <Link
                     href={`/histoires?ville=${ville.id}`}
                     className="inline-flex items-center text-sm font-medium text-amber-600 hover:text-orange-600"
@@ -133,13 +174,23 @@ export default async function VilleDetailPage({ params }: VilleDetailPageProps) 
                   </Link>
                 )}
               </div>
-            ) : (
+            </div>
+          )}
+
+          {/* Cas où il n'y a pas d'histoire */}
+          {(!ville.histoires || ville.histoires.length === 0) && (
+            <div>
+              <h2 className="text-2xl font-bold text-amber-900 mb-6 font-playfair flex items-center">
+                <BookOpenIcon className="h-6 w-6 mr-3 text-amber-600" />
+                Histoires
+              </h2>
               <div className="text-center py-8 text-amber-600">
                 <BookOpenIcon className="h-12 w-12 mx-auto mb-4 text-amber-400" />
                 <p>Aucune histoire disponible pour cette ville.</p>
+                <p className="text-sm mt-2">L&apos;histoire de {ville.nom} sera bientôt ajoutée.</p>
               </div>
-            )}
-          </div>
+            </div>
+          )}
 
           {/* Légendes */}
           <div>

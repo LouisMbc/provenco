@@ -127,7 +127,7 @@ export default function AppellationForm({ appellation, onSubmit, onCancel, loadi
                 setFormData(prev => ({ ...prev, description: content }));
               }}
               placeholder="Décrivez cette appellation, son terroir, ses caractéristiques, son histoire..."
-              bucket="appellation"
+              bucket="appellations"
               entityId={appellation?.id}
             />
           </div>

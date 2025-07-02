@@ -123,7 +123,7 @@ export default function CepageForm({ cepage, onSubmit, onCancel, loading = false
                 setFormData(prev => ({ ...prev, description: content }));
               }}
               placeholder="Décrivez ce cépage, ses caractéristiques, son terroir, ses arômes..."
-              bucket="cepage"
+              bucket="cepages"
               entityId={cepage?.id}
             />
           </div>

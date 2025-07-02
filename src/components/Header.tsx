@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { Bars3Icon, XMarkIcon, MagnifyingGlassIcon, UserIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 import { useAuth } from '@/contexts/AuthContext';
@@ -56,9 +57,13 @@ export default function Header() {
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
         <div className="flex lg:flex-1">
           <Link href="/" className="-m-1.5 p-1.5" onClick={closeDropdowns}>
-            <span className="text-2xl font-bold bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
-              🌻 Provence Authentique
-            </span>
+            <Image 
+              src="/image/logo_prouvenco-removebg-preview.png" 
+              alt="Logo Provenco" 
+              width={150} 
+              height={50} 
+              className="h-12 w-auto"
+            />
           </Link>
         </div>
         <div className="flex lg:hidden">
@@ -182,9 +187,13 @@ export default function Header() {
           <div className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-amber-900/10">
             <div className="flex items-center justify-between">
               <Link href="/" className="-m-1.5 p-1.5">
-                <span className="text-xl font-bold bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
-                  🌻 Provence
-                </span>
+                <Image 
+                  src="/image/logo_prouvenco-removebg-preview.png" 
+                  alt="Logo Provenco" 
+                  width={120} 
+                  height={40} 
+                  className="h-10 w-auto"
+                />
               </Link>
               <button
                 type="button"

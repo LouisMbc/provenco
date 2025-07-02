@@ -7,15 +7,15 @@ VALUES
   ('histoire', 'histoire', true),
   ('legende', 'legende', true),
   ('monument', 'monument', true),
-  ('cepage', 'cepage', true),
-  ('vin', 'vin', true),
-  ('domaine', 'domaine', true),
-  ('appellation', 'appellation', true),
-  ('content', 'content', true)
+  ('cepages', 'cepages', true),
+  ('vins', 'vins', true),
+  ('domaines', 'domaines', true),
+  ('appellations', 'appellations', true),
+  ('typesvin', 'typesvin', true)
 ON CONFLICT (id) DO NOTHING;
 
 -- Politique d'accès publique pour la lecture
-CREATE POLICY "Public read access" ON storage.objects FOR SELECT USING (bucket_id IN ('histoire', 'legende', 'monument', 'cepage', 'vin', 'domaine', 'appellation', 'content'));
+CREATE POLICY "Public read access" ON storage.objects FOR SELECT USING (bucket_id IN ('histoire', 'legende', 'monument', 'cepages', 'vins', 'domaines', 'appellations', 'typesvin'));
 
 -- Politique d'écriture pour les utilisateurs authentifiés (optionnel)
-CREATE POLICY "Authenticated upload access" ON storage.objects FOR INSERT WITH CHECK (bucket_id IN ('histoire', 'legende', 'monument', 'cepage', 'vin', 'domaine', 'appellation', 'content'));
+CREATE POLICY "Authenticated upload access" ON storage.objects FOR INSERT WITH CHECK (bucket_id IN ('histoire', 'legende', 'monument', 'cepages', 'vins', 'domaines', 'appellations', 'typesvin'));
