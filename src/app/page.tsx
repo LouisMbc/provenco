@@ -6,25 +6,25 @@ import Image from "next/image";
 export default function Home() {
   const features = [
     {
-      title: "🏛️ Villes historiques",
+      title: " Villes historiques",
       description: "Découvrez les villes emblématiques de Provence avec leur riche patrimoine architectural et culturel.",
       href: "/villes",
       icon: "🏛️"
     },
     {
-      title: "📚 Histoires millénaires", 
+      title: " Histoires millénaires", 
       description: "Plongez dans les récits fascinants qui ont façonné l'identité provençale à travers les siècles.",
       href: "/histoires",
       icon: "📚"
     },
     {
-      title: "✨ Légendes mystérieuses",
+      title: " Légendes mystérieuses",
       description: "Explorez les contes et légendes qui donnent à la Provence son charme mystique unique.",
       href: "/legendes", 
       icon: "✨"
     },
     {
-      title: "🏰 Monuments emblématiques",
+      title: " Monuments emblématiques",
       description: "Admirez les châteaux, églises et fontaines qui témoignent du génie architectural provençal.",
       href: "/monuments",
       icon: "🏰"

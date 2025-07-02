@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { Bars3Icon, XMarkIcon, MagnifyingGlassIcon, UserIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 import { useAuth } from '@/contexts/AuthContext';
 
@@ -29,7 +30,9 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [villesDropdownOpen, setVillesDropdownOpen] = useState(false);
   const [vinDropdownOpen, setVinDropdownOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const { isAdmin, signOut } = useAuth();
+  const router = useRouter();
 
   const handleSignOut = async () => {
     await signOut();
@@ -38,6 +41,22 @@ export default function Header() {
   const closeDropdowns = () => {
     setVillesDropdownOpen(false);
     setVinDropdownOpen(false);
+  };
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/recherche?q=${encodeURIComponent(searchQuery.trim())}`);
+      setSearchQuery('');
+      closeDropdowns();
+    }
+  };
+
+  const handleSearchKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      const formEvent = e as unknown as React.FormEvent;
+      handleSearch(formEvent);
+    }
   };
 
   // Fermer les dropdowns quand on clique à l'extérieur
@@ -159,16 +178,19 @@ export default function Header() {
           )}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center lg:gap-4">
-          <div className="relative">
+          <form onSubmit={handleSearch} className="relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
               <MagnifyingGlassIcon className="h-5 w-5 text-amber-400" aria-hidden="true" />
             </div>
             <input
               type="text"
               placeholder="Rechercher..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyPress={handleSearchKeyPress}
               className="block w-full pl-10 pr-3 py-2 border border-amber-300 rounded-full leading-5 bg-white placeholder-amber-400 focus:outline-none focus:placeholder-amber-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 sm:text-sm"
             />
-          </div>
+          </form>
           {isAdmin && (
             <button
               onClick={handleSignOut}
